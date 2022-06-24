@@ -65,7 +65,7 @@ spec:
       storage: 100Mi
   volumeMode: Filesystem
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
 
 
 ---
