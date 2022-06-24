@@ -26,7 +26,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: development-server
-
+  targetNamespace: demo-app
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: GitRepository
@@ -51,8 +51,9 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m0s
-  path: ./manifests/prod
+  path: ./manifests/website
   prune: true
   sourceRef:
     kind: GitRepository
     name: website-server-prod
+  targetNamespace: website
