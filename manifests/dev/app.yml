@@ -14,12 +14,7 @@ metadata:
     kubernetes.io/app-name: nginx-server
     project-stage: dev
 spec:
-  replicas: 6
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
+  replicas: 2
   selector:
     matchLabels:
       server: nginx
