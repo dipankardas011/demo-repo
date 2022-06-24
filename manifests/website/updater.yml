@@ -9,17 +9,16 @@ spec:
       template:
         spec:
           containers:
-          - name: hello
-            image: busybox
-            imagePullPolicy: IfNotPresent
-            command:
-            - /bin/sh
-            - -c
-            - 'curl www.github.com/dipankardas011 > /update/index.html'
-          restartPolicy: OnFailure
-          volumeMounts:
-          - mountPath: /update
-            name: website
+            - name: hello
+              image: busybox
+              imagePullPolicy: IfNotPresent
+              command:
+              - /bin/sh
+              - -c
+              - 'curl www.github.com/dipankardas011 > /update/index.html'
+              volumeMounts:
+              - mountPath: /update
+                name: website
 
           volumes:
           - name: website
