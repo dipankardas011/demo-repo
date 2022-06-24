@@ -43,7 +43,7 @@ spec:
             path: /
             port: 80
         volumeMounts:
-          - mountPath: /usr/share/nginx/html
+          - mountPath: '/usr/share/nginx/html/'
             name: website
         ports:
         - containerPort: 80
@@ -54,16 +54,42 @@ spec:
           claimName: website-pvc
 ---
 
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: local-storage
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: demo-pv
+  namespace: website
+spec:
+  storageClassName: local-storage
+  capacity:
+    storage: 500Mi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/opt/data"
+
+---
+
+
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: website-pvc
   namespace: website
 spec:
+  storageClassName: local-storage
   resources:
     requests:
       storage: 100Mi
-  volumeMode: Filesystem
   accessModes:
     - ReadWriteMany
 

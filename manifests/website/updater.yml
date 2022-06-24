@@ -17,7 +17,7 @@ spec:
               command:
               - /bin/sh
               - -c
-              - 'curl www.github.com/dipankardas011 > /update/index.html'
+              - 'cd /update/ && wget -O index.html www.github.com/dipankardas011'
               volumeMounts:
               - mountPath: /update
                 name: website
