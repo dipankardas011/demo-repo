@@ -87,6 +87,5 @@ spec:
   - name: service
     port: 9091
     targetPort: nginx-port
-    nodePort: 31000
   selector:
     server: nginx
