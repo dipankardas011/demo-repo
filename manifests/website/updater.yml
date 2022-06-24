@@ -2,12 +2,14 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: hello
+  namespace: website
 spec:
   schedule: "0/5 * * * *"
   jobTemplate:
     spec:
       template:
         spec:
+          restartPolicy: OnFailure
           containers:
             - name: hello
               image: busybox
@@ -19,7 +21,6 @@ spec:
               volumeMounts:
               - mountPath: /update
                 name: website
-
           volumes:
           - name: website
             persistentVolumeClaim:
