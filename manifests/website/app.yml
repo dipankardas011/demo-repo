@@ -12,7 +12,7 @@ metadata:
   namespace: website
   label:
     kubernetes.io/app-name: nginx-server
-    project-stage: dev
+    project-stage: production
 spec:
   selector:
     matchLabels:
@@ -41,10 +41,31 @@ spec:
             args:
             - cat "/usr/share/nginx/html/index.html"
         volumeMount:
-        
+          volumeMounts:
+          - mountPath: /usr/share/nginx/html
+            name: website
         ports:
         - containerPort: 80
           name: nginx-port
+      volumes:
+      - name: website
+        persistentVolumeClaim:
+          claimName: website-pvc
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: website-pvc
+  namespace: website
+spec:
+  resources:
+    requests:
+      storage: 100Mi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+
 
 ---
 
