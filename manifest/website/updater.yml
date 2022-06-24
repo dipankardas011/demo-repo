@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: hello
+spec:
+  schedule: "0/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: hello
+            image: busybox
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            - -c
+            - 'curl www.github.com/dipankardas011 > /update/index.html'
+          restartPolicy: OnFailure
+          volumeMounts:
+          - mountPath: /update
+            name: website
+
+          volumes:
+          - name: website
+            persistentVolumeClaim:
+              claimName: demo-pvclaim
